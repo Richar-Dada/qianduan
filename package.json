@@ -15,8 +15,15 @@
     "axios": "^0.16.2",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.3",
     "nuxt": "^1.0.0-rc3",
-    "source-map-support": "^0.4.15"
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.10",
+    "source-map-support": "^0.4.15",
+    "sqlite3": "^4.0.0",
+    "tedious": "^2.6.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
