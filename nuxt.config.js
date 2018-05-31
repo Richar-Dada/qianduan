@@ -18,13 +18,18 @@ module.exports = {
   */
   css: [
     '~/assets/css/main.css',
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css',
     ],
+    
   /*
   ** Add axios globally
   */
   plugins:[
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    { src: '~plugins/nuxt-quill-plugin.js', ssr: false }
   ],
   build: {
     vendor: ['axios'],

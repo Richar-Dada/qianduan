@@ -3,18 +3,18 @@ var db = require('./../util/db')
 
 var Article = db.define('articles', {
   title: DataTypes.STRING,
-  // content: {
-  //   type: DataTypes.STRING
-  // },
-  // author: {
-  //   type: DataTypes.STRING
-  // },
-  // source: {
-  //   type: DataTypes.STRING
-  // },
-  // tag: {
-  //   type: DataTypes.STRING
-  // }
+  author: {
+    type: DataTypes.STRING
+  },
+  source: {
+    type: DataTypes.STRING
+  },
+  tags: {
+    type: DataTypes.STRING
+  },
+  content: {
+    type: DataTypes.STRING
+  }
 }, {
   freezeTableName: false
 })
