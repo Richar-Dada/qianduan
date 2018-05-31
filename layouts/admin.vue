@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-container>
+    <el-container class="el-container">
       <el-header class="el-header">文章管理</el-header>
       <el-container>
         <!-- 侧边导航 -->
@@ -10,30 +10,37 @@
               <el-menu
                 default-active="2"
                 class="el-menu-vertical-demo"
-                @open="handleOpen"
                 @close="handleClose">
-                <el-menu-item index="1">
-                  <i class="el-icon-menu"></i>
-                  <span slot="title">文章列表</span>
-                </el-menu-item>
-                <el-menu-item index="2">
-                  <i class="el-icon-menu"></i>
-                  <span slot="title">发布文章</span>
-                </el-menu-item>
-                <el-menu-item index="3" disabled>
-                  <i class="el-icon-document"></i>
-                  <span slot="title">导航三</span>
-                </el-menu-item>
-                <el-menu-item index="4">
-                  <i class="el-icon-setting"></i>
-                  <span slot="title">导航四</span>
-                </el-menu-item>
+                <nuxt-link to="/admin">
+                  <el-menu-item index="1">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">文章列表</span>
+                  </el-menu-item>
+                </nuxt-link>
+                <nuxt-link to="/admin/publish">
+                  <el-menu-item index="publish">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">发布文章</span>
+                  </el-menu-item>
+                </nuxt-link>
+                <nuxt-link to="/admin/tag">
+                  <el-menu-item index="tag">
+                    <i class="el-icon-document"></i>
+                    <span slot="title">标签管理</span>
+                  </el-menu-item>
+                </nuxt-link>
+                <nuxt-link to="/admin">
+                  <el-menu-item index="4">
+                    <i class="el-icon-setting"></i>
+                    <span slot="title">导航四</span>
+                  </el-menu-item>
+                </nuxt-link>
               </el-menu>
             </el-col>
           </el-row>
         </el-aside>
         <!-- 侧边导航 -->
-        <el-main>
+        <el-main class="el-main">
           <nuxt/>
         </el-main>
       </el-container>
@@ -50,6 +57,10 @@ export default {
     },
     handleClose (key, keyPath) {
       console.log(key, keyPath)
+    },
+    handleSelect (key, keyPath) {
+      console.log(key)
+      console.log(keyPath)
     }
   }
 }
@@ -100,4 +111,7 @@ export default {
   color: #409EFF;
 }
 
+.el-main{
+  background-color: #fff;
+}
 </style>

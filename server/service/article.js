@@ -6,5 +6,9 @@ export default {
     console.log('service--------------')
     console.log(result)
     return result
+  },
+  async findAll () {
+    const result = await articleModel.findAll()
+    return result
   }
 }
