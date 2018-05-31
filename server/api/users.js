@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import article from './../models/article'
+import article from './../service/article'
 
 const router = Router()
 
@@ -26,21 +26,16 @@ router.get('/users/:id', function (req, res, next) {
 })
 
 /* GET user by ID. */
-router.get('/test', function (req, res, next) {
+router.get('/test', async function (req, res, next) {
   console.log('test-----------------------------')
   console.log(article)
   
-  article.findById(123).then((res) => {
-    console.log('nul------------')
-    console.log(res)
-  })
-  article.create({
+  let result = await article.create({
     title: 'aaaa'
-  }).then((res) => {
-    console.log(res)
-    res.send('aaa')
   })
- 
+  console.log('router---')
+  console.log(result)
+  res.send(result)
 })
 
 export default router
