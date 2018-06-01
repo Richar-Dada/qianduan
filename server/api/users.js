@@ -33,8 +33,6 @@ router.get('/test', async function (req, res, next) {
   let result = await article.create({
     title: 'aaaa'
   })
-  console.log('router---')
-  console.log(result)
   res.send(result)
 })
 

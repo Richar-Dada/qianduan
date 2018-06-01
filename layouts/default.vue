@@ -2,7 +2,9 @@
   <div>
     <my-header/>
     <my-nav/>
-    <nuxt/>
+    <div class="content">
+      <nuxt/>
+    </div>
     <my-footer/>
   </div>
 </template>
@@ -54,5 +56,13 @@ export default {
   font-weight: 300;
   font-size: 2.5em;
   margin: 0;
+}
+
+.content
+{
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
 </style>

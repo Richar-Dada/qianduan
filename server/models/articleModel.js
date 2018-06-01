@@ -13,7 +13,7 @@ var Article = db.define('articles', {
     type: DataTypes.STRING
   },
   content: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING(10000)
   }
 }, {
   freezeTableName: false

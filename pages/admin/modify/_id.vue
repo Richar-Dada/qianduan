@@ -22,7 +22,7 @@
       </div>
     </el-form-item>    
     <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+      <el-button type="primary" @click="submitForm('ruleForm')">立即修改</el-button>
       <el-button @click="resetForm('ruleForm')">重置</el-button>
     </el-form-item>
   </el-form>
@@ -43,6 +43,7 @@
           tags: '',
           content: ''
         },
+        article: '',
         editorOption: {
           // some quill options
           modules: {
@@ -72,32 +73,39 @@
         }
       }
     },
-    asyncData ({ error }) {
-      return axios.get('/api/tags')
-        .then((res) => {
-          return { tags: res.data }
-        })
-        .catch((e) => {
-          error({ statusCode: 404, message: 'User not found' })
-        })
+    async asyncData ({ params }) {
+      let tagData = await axios.get('/api/tags')
+      let articleData = await axios.get('/api/articles/' + params.id)
+      return {
+        tags: tagData.data,
+        article: articleData.data.data
+      }
+    },
+    created () {
+      this.ruleForm.title = this.article.title
+      this.ruleForm.source = this.article.source
+      this.ruleForm.author = this.article.author
+      this.ruleForm.content = this.article.content
+      this.ruleForm.type = this.article.tags.split(',')
     },
     methods: {
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            var issubmit = confirm('确定创建文章？')
+            var issubmit = confirm('确定修改文章？')
             if (issubmit) {
               let data = {
+                id: this.article.id,
                 title: this.ruleForm.title,
                 author: this.ruleForm.author,
                 source: this.ruleForm.source,
                 tags: this.ruleForm.type.join(','),
-                content: `${this.ruleForm.content}`
+                content: this.ruleForm.content
               }
-              axios.post('/api/articles', data)
+              axios.post('/api/articles/update', data)
                 .then((res) => {
                   if (res.data.resultCode === 200) {
-                    alert('创建成功')
+                    alert('修改成功')
                     window.location = '/admin'
                   } else {
                     alert(res.data.errorMsg)
@@ -114,7 +122,6 @@
         this.$refs[formName].resetFields()
       },
       onEditorChange ({ editor, html, text }) {
-        console.log('editor change!', editor, html, text)
         this.ruleForm.content = html
       }
     }

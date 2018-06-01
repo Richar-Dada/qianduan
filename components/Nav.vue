@@ -47,7 +47,7 @@ li:first-of-type {
   padding-left: 10px;
 }
 a {
-  color: #999;
+  color: #333;
 }
 .active {
   color: #41b883;
