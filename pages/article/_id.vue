@@ -36,14 +36,23 @@
 
 <script>
 import axios from '~/plugins/axios'
-import markdown from 'markdown'
+var marked = require('marked')
+
+function compiledMarkdown (content) {
+  return marked(content, {
+    sanitize: true,
+    highlight: function (code) {
+      return require('highlight.js').highlightAuto(code).value
+    }
+  })
+}
 
 export default {
   name: 'id',
   asyncData ({ params, error }) {
     return axios.get('/api/articles/' + params.id)
       .then((res) => {
-        res.data.data.content = markdown.toHTML(res.data.data.content)
+        res.data.data.content = compiledMarkdown(res.data.data.content)
         return { article: res.data.data }
       })
       .catch((e) => {
@@ -58,7 +67,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .article-container
 {
   width: 960px;

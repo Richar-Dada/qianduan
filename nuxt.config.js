@@ -22,6 +22,8 @@ module.exports = {
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css',
     'quill/dist/quill.core.css',
+    'mavon-editor/dist/css/index.css',
+    'highlight.js/styles/atom-one-light.css'
     ],
     
   /*
@@ -29,7 +31,8 @@ module.exports = {
   */
   plugins:[
     '@/plugins/element-ui',
-    { src: '~plugins/nuxt-quill-plugin.js', ssr: false }
+    { src: '~plugins/nuxt-quill-plugin.js', ssr: false },
+    { src: '~plugins/mavon-editor.js', ssr: false }
   ],
   build: {
     vendor: ['axios'],

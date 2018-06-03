@@ -15,11 +15,8 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item prop="content">
-      <div class="quill-editor" 
-          :content="ruleForm.content"
-          @change="onEditorChange($event)"
-          v-quill:myQuillEditor="editorOption">
-      </div>
+      
+      <vue-editor class="vue-editor" v-model="value" @change="handleChange"></vue-editor>
     </el-form-item>    
     <el-form-item>
       <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -30,9 +27,14 @@
 
 <script>
   import axios from '~/plugins/axios'
+  import hljs from 'highlight.js'
+  import VueEditor from '../../components/VueEditor'
 
   export default {
     layout: 'admin',
+    components: {
+      VueEditor
+    },
     data () {
       return {
         ruleForm: {
@@ -43,13 +45,29 @@
           tags: '',
           content: ''
         },
+        value: '',
         editorOption: {
           // some quill options
           modules: {
             toolbar: [
               ['bold', 'italic', 'underline', 'strike'],
-              ['blockquote', 'code-block']
-            ]
+              ['blockquote', 'code-block'],
+              [{ 'header': 1 }, { 'header': 2 }],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+              [{ 'script': 'sub' }, { 'script': 'super' }],
+              [{ 'indent': '-1' }, { 'indent': '+1' }],
+              [{ 'direction': 'rtl' }],
+              [{ 'size': ['small', false, 'large', 'huge'] }],
+              [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+              [{ 'font': [] }],
+              [{ 'color': [] }, { 'background': [] }],
+              [{ 'align': [] }],
+              ['clean'],
+              ['link', 'image', 'video']
+            ],
+            syntax: {
+              highlight: text => hljs.highlightAuto(text).value
+            }
           }
         },
         rules: {
@@ -116,6 +134,9 @@
       onEditorChange ({ editor, html, text }) {
         console.log('editor change!', editor, html, text)
         this.ruleForm.content = html
+      },
+      handleChange (html) {
+        this.ruleForm.content = html
       }
     }
   }
@@ -127,6 +148,10 @@
   max-height: 400px;
   overflow-y: auto;
   margin-bottom: 20px;
+}
+
+.vue-editor {
+  line-height: 1.5;  
 }
 
 </style>
