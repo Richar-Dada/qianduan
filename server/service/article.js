@@ -1,4 +1,6 @@
 import articleModel from '../models/articleModel'
+var { Sequelize } = require('sequelize')
+const Op = Sequelize.Op
 
 export default {
   async create (data) {
@@ -8,18 +10,24 @@ export default {
     return { resultCode: 200, errorMsg: '文章创建成功' }
   },
   async findAll (tag) {
-    console.log(tag)
-    if (tag && tag !== 'all') {
-      const result = await articleModel.findAll({
-        where: { tag: { [Op.like]: '%' + tag + '%' } }
-      })
-      return { resultCode: 200, data: result }
-    }
+    try {
+      if (tag && tag !== 'all') {
+        const result = await articleModel.findAll({
+          where: { tags: { [Op.like]: '%'+tag+'%' } }
+        })
+        return { resultCode: 200, data: result }
+      } else if (tag === 'all') {
+        const result = await articleModel.findAll({
+          where: { publish: 1 }
+        })
+        return { resultCode: 200, data: result }
+      }
 
-    const result = await articleModel.findAll({
-      where: { publish: 1 }
-    })
-    return { resultCode: 200, data: result }
+      const result = await articleModel.findAll()
+      return { resultCode: 200, data: result }
+    } catch (e) {
+      console.log(e)
+    }
   },
   async findById (id) {
     const result = await articleModel.findById(id)

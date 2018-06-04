@@ -1,58 +1,37 @@
 <template>
-  <section class="article-list">
-    <div class="article-item">
-      <div class="article-info">
-        <span>dongling</span>
-        <span>2018-06-04</span>
-        <span>Vue.js/Google</span>
-      </div>
-      <div class="article-title">
-        你或许不知道Vue的这些小技巧
-      </div>
+  <section class="article-container">
+    <div class="left">
+      <a :href="'/article/' + article.id" v-for="(article, index) in articleList" :key="article">
+        <div class="article-item" >
+          <div class="article-info">
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item class="article-info">dongling</el-breadcrumb-item>
+              <el-breadcrumb-item class="article-info">2018-06-04</el-breadcrumb-item>
+              <el-breadcrumb-item class="article-info">Vue.js/Google</el-breadcrumb-item>
+            </el-breadcrumb>
+          </div>
+          <div class="article-title">
+            你或许不知道Vue的这些小技巧
+          </div>
+        </div>
+      </a>
+      
     </div>
-    <div class="article-item">
-      <div class="article-info">
-        <span>dongling</span>
-        <span>2018-06-04</span>
-        <span>Vue.js/Google</span>
-      </div>
-      <div class="article-title">
-        你或许不知道Vue的这些小技巧
-      </div>
-    </div>
-    <div class="article-item">
-      <div class="article-info">
-        <span>dongling</span>
-        <span>2018-06-04</span>
-        <span>Vue.js/Google</span>
-      </div>
-      <div class="article-title">
-        你或许不知道Vue的这些小技巧
-      </div>
-    </div>
+    <div class="right"></div>
+
+    
   </section>
 </template>
 
 <script>
 import axios from '~/plugins/axios'
-var marked = require('marked')
-
-function compiledMarkdown (content) {
-  return marked(content, {
-    sanitize: true,
-    highlight: function (code) {
-      return require('highlight.js').highlightAuto(code).value
-    }
-  })
-}
 
 export default {
-  name: 'id',
+  name: 'index',
   asyncData ({ params, error }) {
     return axios.get('/api/articles/' + params.id)
       .then((res) => {
-        res.data.data.content = compiledMarkdown(res.data.data.content)
-        return { article: res.data.data }
+        return { articleList: res.data.data }
       })
       .catch((e) => {
         error({ statusCode: 404, message: 'Article not found' })
@@ -60,13 +39,13 @@ export default {
   },
   head () {
     return {
-      title: `${this.article.title}`
+      title: `前端`
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .article-container
 {
   width: 960px;
@@ -76,9 +55,8 @@ export default {
 
 .left
 {
-  width: 660px;
+  width: 700px;
   background-color: #ffffff;
-  padding: 20px;
 }
 
 .right
@@ -91,34 +69,33 @@ export default {
   top: 0;
 }
 
-.header
-{
-  height: 20px;
-  padding-bottom: 10px;
-}
-.header-item{
-  display: inline-block;
-  width: 33%;
-  color: #333;
+.article-list{
+  background-color: #ffffff;
 }
 
-.title{
-  margin: 10px 0; 
-  padding-bottom: 10px;
-  border-bottom: 1px dotted #ccc; 
+.article-item {
+  height: 60px;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  cursor: pointer;
 }
 
-strong{
-  padding-right: 5px;
+a:last-child .article-item {
+  border-bottom: 0;
 }
 
-h5
-{
-  margin: 0;
+.article-item:hover {
+  background-color: #fcfcfc;
 }
 
-.font14
-{
-  font-size: 14px;
+.article-info {
+  font-size: 12px;
+  color: #cccccc;
+}
+
+.article-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 20px 0 10px 0;
 }
 </style>

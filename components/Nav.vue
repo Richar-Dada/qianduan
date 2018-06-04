@@ -2,22 +2,28 @@
   <nav>
     <ul class="nav-content">
       <li>
-        <nuxt-link to="/about" class="active">热点文章</nuxt-link>
+        <nuxt-link to="/" class="active">最新文章</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/about">React</nuxt-link>
+        <nuxt-link to="/react">React</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/about">Vue</nuxt-link>
+        <nuxt-link to="/vue">Vue</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/about">Angular</nuxt-link>
+        <nuxt-link to="/angular">Angular</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/about">Node</nuxt-link>
+        <nuxt-link to="/node">Node</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/about">面试分享</nuxt-link>
+        <nuxt-link to="/build">构建</nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/interveiw">面试分享</nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/other">其他</nuxt-link>
       </li>
     </ul>
   </nav>
@@ -47,7 +53,7 @@ li:first-of-type {
   padding-left: 10px;
 }
 a {
-  color: #333;
+  color: #999;
 }
 .active {
   color: #41b883;

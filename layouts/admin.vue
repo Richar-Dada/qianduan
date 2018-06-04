@@ -19,7 +19,7 @@
                 </nuxt-link>
                 <nuxt-link to="/admin/publish">
                   <el-menu-item index="publish">
-                    <i class="el-icon-menu"></i>
+                    <i class="el-icon-plus"></i>
                     <span slot="title">发布文章</span>
                   </el-menu-item>
                 </nuxt-link>
