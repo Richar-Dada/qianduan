@@ -1,9 +1,11 @@
 <template>
   <div class="header">
     <header>
-      <div class="logo">
-        <span>前 端</span>
-      </div>
+      <a href="/">
+        <div class="logo">
+          <span>前 端</span>
+        </div>
+      </a>
     </header>
   </div>
 </template>
@@ -16,15 +18,20 @@
 .header{
   background-color: #fff;
 }
+
 header{
   width: 960px;
   height: 60px;
   margin: 0 auto;
-  color: #41b883;
 }
-.logo{
-  font-size: 30px;
+
+.logo span{
   line-height: 60px;
   padding-left: 10px;
+}
+
+a {
+  font-size: 30px;
+  color: #41b883;
 }
 </style>

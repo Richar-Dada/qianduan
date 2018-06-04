@@ -14,7 +14,11 @@ var Article = db.define('articles', {
   },
   content: {
     type: DataTypes.STRING(10000)
-  }
+  },
+  publish: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  },
 }, {
   freezeTableName: false
 })

@@ -32,6 +32,8 @@
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
         <el-button type="text" size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+        <el-button type="text" size="small" @click="handlePublish(scope.$index, scope.row)" v-if="scope.row.publish == 0">发布</el-button>
+        <el-button type="text" size="small" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -57,6 +59,41 @@
       },
       handleEdit (index, row) {
         window.location = '/admin/modify/' + row.id
+      },
+      handleDelete (index, row) {
+        let confirmDelete = confirm('确定删除?')
+        if (confirmDelete) {
+          let data = { id: row.id }
+          axios.post('/api/articles/delete', data)
+            .then((res) => {
+              if (res.data.resultCode === 200) {
+                alert('删除成功')
+                window.location = window.location
+              }
+            })
+            .catch((e) => {
+              console.log(e)
+            })
+        }
+      },
+      handlePublish (index, row) {
+        let confirmDelete = confirm('确定删除?')
+        if (confirmDelete) {
+          let data = {
+            id: row.id,
+            publish: 1
+          }
+          axios.post('/api/articles/update', data)
+            .then((res) => {
+              if (res.data.resultCode === 200) {
+                alert('更新成功')
+                window.location = window.location
+              }
+            })
+            .catch((e) => {
+              console.log(e)
+            })
+        }
       }
     },
     asyncData ({ error }) {

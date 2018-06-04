@@ -8,7 +8,12 @@ router.get('/articles', async function (req, res, next) {
   res.json(result)
 })
 
-router.get('/articles/:id', async function (req, res, next) {
+router.get('/articles/:tag', async function (req, res, next) {
+  const result = await article.findAll(req.params.tag)
+  res.json(result)
+})
+
+router.get('/article/:id', async function (req, res, next) {
   const result = await article.findById(req.params.id)
   res.json(result)
 })
