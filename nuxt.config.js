@@ -32,7 +32,7 @@ module.exports = {
   plugins:[
     '@/plugins/element-ui',
     { src: '~plugins/nuxt-quill-plugin.js', ssr: false },
-    { src: '~plugins/mavon-editor.js', ssr: false }
+    { src: '~plugins/md-editor.js', ssr: false }
   ],
   build: {
     vendor: ['axios'],

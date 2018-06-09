@@ -5,7 +5,6 @@ const Op = Sequelize.Op
 export default {
   async create (data) {
     if (!data) return { resultCode: 508, errorMsg: '数据为空' }
-    console.log(data.content.length)
     await articleModel.create(data)
     return { resultCode: 200, errorMsg: '文章创建成功' }
   },

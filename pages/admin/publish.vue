@@ -15,8 +15,9 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item prop="content">
-      
-      <vue-editor class="vue-editor" v-model="value" @change="handleChange"></vue-editor>
+      <no-ssr>
+        <md-editor class="vue-editor" height="600px" defaultContent="" @change="handleChange"></md-editor>
+      </no-ssr>
     </el-form-item>    
     <el-form-item>
       <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -27,14 +28,9 @@
 
 <script>
   import axios from '~/plugins/axios'
-  import hljs from 'highlight.js'
-  import VueEditor from '../../components/VueEditor'
 
   export default {
     layout: 'admin',
-    components: {
-      VueEditor
-    },
     data () {
       return {
         ruleForm: {
@@ -44,31 +40,6 @@
           type: [],
           tags: '',
           content: ''
-        },
-        value: '',
-        editorOption: {
-          // some quill options
-          modules: {
-            toolbar: [
-              ['bold', 'italic', 'underline', 'strike'],
-              ['blockquote', 'code-block'],
-              [{ 'header': 1 }, { 'header': 2 }],
-              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-              [{ 'script': 'sub' }, { 'script': 'super' }],
-              [{ 'indent': '-1' }, { 'indent': '+1' }],
-              [{ 'direction': 'rtl' }],
-              [{ 'size': ['small', false, 'large', 'huge'] }],
-              [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-              [{ 'font': [] }],
-              [{ 'color': [] }, { 'background': [] }],
-              [{ 'align': [] }],
-              ['clean'],
-              ['link', 'image', 'video']
-            ],
-            syntax: {
-              highlight: text => hljs.highlightAuto(text).value
-            }
-          }
         },
         rules: {
           title: [
@@ -137,6 +108,7 @@
       },
       handleChange (html) {
         this.ruleForm.content = html
+        console.log('dss')
       }
     }
   }
@@ -148,10 +120,6 @@
   max-height: 400px;
   overflow-y: auto;
   margin-bottom: 20px;
-}
-
-.vue-editor {
-  line-height: 1.5;  
 }
 
 </style>

@@ -15,11 +15,9 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item prop="content">
-      <div class="quill-editor" 
-          :content="ruleForm.content"
-          @change="onEditorChange($event)"
-          v-quill:myQuillEditor="editorOption">
-      </div>
+      <no-ssr>
+        <md-editor class="vue-editor" height="600px" :defaultContent="ruleForm.content" @change="handleChange"></md-editor>
+      </no-ssr>
     </el-form-item>    
     <el-form-item>
       <el-button type="primary" @click="submitForm('ruleForm')">立即修改</el-button>
@@ -44,15 +42,6 @@
           content: ''
         },
         article: '',
-        editorOption: {
-          // some quill options
-          modules: {
-            toolbar: [
-              ['bold', 'italic', 'underline', 'strike'],
-              ['blockquote', 'code-block']
-            ]
-          }
-        },
         rules: {
           title: [
             { required: true, message: '请输入文章标题', trigger: 'blur' },
@@ -75,7 +64,7 @@
     },
     async asyncData ({ params }) {
       let tagData = await axios.get('/api/tags')
-      let articleData = await axios.get('/api/articles/' + params.id)
+      let articleData = await axios.get('/api/article/' + params.id)
       return {
         tags: tagData.data,
         article: articleData.data.data
@@ -121,7 +110,7 @@
       resetForm (formName) {
         this.$refs[formName].resetFields()
       },
-      onEditorChange ({ editor, html, text }) {
+      handleChange (html) {
         this.ruleForm.content = html
       }
     }
