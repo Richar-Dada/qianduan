@@ -17,7 +17,9 @@
       </a>
       
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <topic></topic>
+    </div>
 
     
   </section>
@@ -25,9 +27,13 @@
 
 <script>
 import axios from '~/plugins/axios'
+import Topic from '~/components/Topic'
 
 export default {
   name: 'index',
+  components: {
+    Topic
+  },
   asyncData ({ params, error }) {
     return axios.get('/api/articles/all')
       .then((res) => {
@@ -63,7 +69,7 @@ export default {
 {
   background-color: #ffffff;
   width: 240px;
-  height: 400px;
+  min-height: 400px;
   position: absolute;
   right: 0;
   top: 0;

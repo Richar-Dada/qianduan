@@ -63,7 +63,7 @@ export default {
 {
   background-color: #ffffff;
   width: 240px;
-  height: 400px;
+  min-height: 400px;
   position: absolute;
   right: 0;
   top: 0;

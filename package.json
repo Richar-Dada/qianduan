@@ -20,7 +20,7 @@
     "highlight": "^0.2.4",
     "lodash": "^4.17.10",
     "markdown": "^0.5.0",
-    "markdown-editor-vue": "^1.0.3",
+    "markdown-editor-vue": "^1.0.4",
     "marked": "^0.4.0",
     "mavon-editor": "^2.6.4",
     "mysql": "^2.15.0",

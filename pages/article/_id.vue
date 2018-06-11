@@ -28,7 +28,9 @@
       </div>
       <!-- 内容 -->
     </div>
-    <div class="right">这是一个广告</div>
+    <div class="right">
+      <topic></topic>
+    </div>
    
     
   </section>
@@ -36,6 +38,7 @@
 
 <script>
 import axios from '~/plugins/axios'
+import Topic from '~/components/Topic'
 var marked = require('marked')
 
 function compiledMarkdown (content) {
@@ -49,6 +52,9 @@ function compiledMarkdown (content) {
 
 export default {
   name: 'id',
+  components: {
+    Topic
+  },
   asyncData ({ params, error }) {
     return axios.get('/api/article/' + params.id)
       .then((res) => {
@@ -86,7 +92,7 @@ export default {
 {
   background-color: #ffffff;
   width: 240px;
-  height: 400px;
+  min-height: 400px;
   position: absolute;
   right: 0;
   top: 0;
