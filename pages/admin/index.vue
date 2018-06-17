@@ -39,8 +39,9 @@
   </el-table>
   <div class="block">
     <el-pagination
+      @current-change="handleCurrentChange"
       :current-page.sync="currentPage"
-      :page-size="15"
+      :page-size="10"
       layout="prev, pager, next, jumper"
       :total="articlesData.length">
     </el-pagination>
@@ -59,6 +60,9 @@
       },
       handleEdit (index, row) {
         window.location = '/admin/modify/' + row.id
+      },
+      handleCurrentChange (val) {
+        console.log(`当前页: ${val}`)
       },
       handleDelete (index, row) {
         let confirmDelete = confirm('确定删除?')
@@ -108,7 +112,7 @@
     data () {
       return {
         articlesData: [],
-        currentPage: 2
+        currentPage: 1
       }
     }
   }

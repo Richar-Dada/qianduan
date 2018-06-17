@@ -12,17 +12,27 @@ export default {
     try {
       if (tag && tag !== 'all') {
         const result = await articleModel.findAll({
-          where: { tags: { [Op.like]: '%'+tag+'%' } }
+          where: { tags: { [Op.like]: '%'+tag+'%' } },
+          order: [
+            ['id', 'DESC'],
+          ]
         })
         return { resultCode: 200, data: result }
       } else if (tag === 'all') {
         const result = await articleModel.findAll({
-          where: { publish: 1 }
+          where: { publish: 1 },
+          order: [
+            ['id', 'DESC'],
+          ]
         })
         return { resultCode: 200, data: result }
       }
 
-      const result = await articleModel.findAll()
+      const result = await articleModel.findAll({
+        order: [
+          ['id', 'DESC'],
+        ]
+      })
       return { resultCode: 200, data: result }
     } catch (e) {
       console.log(e)

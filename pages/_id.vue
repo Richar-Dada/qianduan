@@ -1,7 +1,7 @@
 <template>
   <section class="article-container">
     <div class="left">
-      <a :href="'/article/' + article.id" v-for="(article, index) in articleList" :key="article">
+      <a :href="'/article/' + article.id" v-for="(article) in articleList" :key="article">
         <div class="article-item" >
           <div class="article-info">
             <el-breadcrumb separator="/">

@@ -7,11 +7,11 @@
           <strong class="font14">作者:</strong>
           <span class="font14">{{ article.author }}</span> 
         </div>
-        <div class="header-item">
+        <div class="header-item" style="text-align:center;">
           <strong class="font14">来源:</strong>
           <span class="font14">{{ article.source }}</span> 
         </div>
-        <div class="header-item">
+        <div class="header-item" style="text-align:right;">
           <strong class="font14">日期:</strong>
           <span class="font14">{{ article.createdAt.split('T')[0] }}</span> 
         </div>
@@ -116,5 +116,15 @@ h5
 .font14
 {
   font-size: 14px;
+}
+
+.header {
+  display: flex;
+  padding: 0px 50px;
+  color: #999;
+}
+
+.header-item {
+  flex: 1;
 }
 </style>

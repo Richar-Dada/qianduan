@@ -1,7 +1,7 @@
 <template>
   <section class="article-container">
     <div class="left">
-      <a :href="'/article/' + article.id" v-for="(article, index) in articleList" :key="article">
+      <a :href="'/article/' + article.id" v-for="(article) in articleList" :key="article">
         <div class="article-item" >
           <div class="article-info">
             <el-breadcrumb separator="/">
@@ -15,7 +15,13 @@
           </div>
         </div>
       </a>
-      
+      <div class="article-pagination">
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :total="1000">
+        </el-pagination>
+      </div>
     </div>
     <div class="right">
       <topic></topic>
@@ -103,5 +109,11 @@ a:last-child .article-item {
   font-size: 18px;
   font-weight: 600;
   margin: 20px 0 10px 0;
+}
+
+.article-pagination {
+  padding-top: 10px;
+  text-align: center;
+  height: 40px;
 }
 </style>
