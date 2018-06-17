@@ -8,32 +8,39 @@ export default {
     await articleModel.create(data)
     return { resultCode: 200, errorMsg: '文章创建成功' }
   },
-  async findAll (tag) {
+  async findAll ({ tag, page = 1 } = { tag: '', page: 1 }) {
     try {
       if (tag && tag !== 'all') {
-        const result = await articleModel.findAll({
+        const result = await articleModel.findAndCountAll({
           where: { tags: { [Op.like]: '%'+tag+'%' } },
           order: [
             ['id', 'DESC'],
-          ]
+          ],
+          limit: 10,
+          offset: (page - 1) * 10
         })
-        return { resultCode: 200, data: result }
+        return { resultCode: 200, data: result.rows, allCount: result.count }
       } else if (tag === 'all') {
-        const result = await articleModel.findAll({
+        const result = await articleModel.findAndCountAll({
           where: { publish: 1 },
           order: [
             ['id', 'DESC'],
-          ]
+          ],
+          limit: 10,
+          offset: (page - 1) * 10
         })
-        return { resultCode: 200, data: result }
+        return { resultCode: 200, data: result.rows, allCount: result.count }
       }
 
-      const result = await articleModel.findAll({
+      const result = await articleModel.findAndCountAll({
         order: [
           ['id', 'DESC'],
-        ]
+        ],
+        limit: 10,
+        offset: (page - 1) * 10
       })
-      return { resultCode: 200, data: result }
+      
+      return { resultCode: 200, data: result.rows, allCount: result.count }
     } catch (e) {
       console.log(e)
     }

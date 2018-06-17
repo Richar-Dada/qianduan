@@ -43,7 +43,7 @@
       :current-page.sync="currentPage"
       :page-size="10"
       layout="prev, pager, next, jumper"
-      :total="articlesData.length">
+      :total="totalCount">
     </el-pagination>
   </div>
 </div>
@@ -54,6 +54,22 @@
 
   export default {
     layout: 'admin',
+    asyncData ({ error }) {
+      return axios.get('/api/articles')
+        .then((res) => {
+          return { articlesData: res.data.data, totalCount: res.data.allCount }
+        })
+        .catch((e) => {
+          error({ statusCode: 404, message: 'User not found' })
+        })
+    },
+    data () {
+      return {
+        articlesData: [],
+        currentPage: 1,
+        totalCount: 0
+      }
+    },
     methods: {
       handleClick (row) {
         window.open('/article/' + row.id)
@@ -62,7 +78,14 @@
         window.location = '/admin/modify/' + row.id
       },
       handleCurrentChange (val) {
-        console.log(`当前页: ${val}`)
+        axios.get('/api/articles?page=' + val)
+          .then((res) => {
+            this.articlesData = res.data.data
+            this.totalCount = res.data.allCount
+          })
+          .catch((e) => {
+            console.log(e)
+          })
       },
       handleDelete (index, row) {
         let confirmDelete = confirm('确定删除?')
@@ -81,7 +104,7 @@
         }
       },
       handlePublish (index, row) {
-        let confirmDelete = confirm('确定删除?')
+        let confirmDelete = confirm('确定发布?')
         if (confirmDelete) {
           let data = {
             id: row.id,
@@ -98,21 +121,6 @@
               console.log(e)
             })
         }
-      }
-    },
-    asyncData ({ error }) {
-      return axios.get('/api/articles')
-        .then((res) => {
-          return { articlesData: res.data.data }
-        })
-        .catch((e) => {
-          error({ statusCode: 404, message: 'User not found' })
-        })
-    },
-    data () {
-      return {
-        articlesData: [],
-        currentPage: 1
       }
     }
   }

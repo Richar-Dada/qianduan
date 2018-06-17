@@ -17,9 +17,10 @@
       </a>
       <div class="article-pagination">
         <el-pagination
+          @current-change="handleCurrentChange"
           background
           layout="prev, pager, next"
-          :total="1000">
+          :total="totalCount">
         </el-pagination>
       </div>
     </div>
@@ -43,15 +44,35 @@ export default {
   asyncData ({ params, error }) {
     return axios.get('/api/articles/all')
       .then((res) => {
-        return { articleList: res.data.data }
+        return { articleList: res.data.data, totalCount: res.data.allCount }
       })
       .catch((e) => {
         error({ statusCode: 404, message: 'Article not found' })
       })
   },
+  data () {
+    return {
+      totalCount: 0,
+      articleList: []
+    }
+  },
   head () {
     return {
       title: `前端`
+    }
+  },
+  methods: {
+    handleCurrentChange (val) {
+      console.log(val)
+      axios.get('/api/articles/all?page=' + val)
+        .then((res) => {
+          console.log(res.data)
+          this.articleList = res.data.data
+          this.totalCount = res.data.allCount
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     }
   }
 }
