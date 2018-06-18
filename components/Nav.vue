@@ -37,8 +37,6 @@
       }
     },
     created () {
-      console.log('aa')
-      console.log(this.$route.params.id)
       this.type = this.$route.params.id
     },
     methods: {

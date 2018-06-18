@@ -62,6 +62,17 @@ export default {
       console.log(key)
       console.log(keyPath)
     }
+  },
+  mounted () {
+    let session = sessionStorage.getItem('isAdmin')
+    if (!session) {
+      let answer = prompt('今晚打老虎')
+      if (answer !== 'lzc86063568') {
+        window.location = '/'
+      } else {
+        sessionStorage.setItem('isAdmin', true)
+      }
+    }
   }
 }
 </script>
