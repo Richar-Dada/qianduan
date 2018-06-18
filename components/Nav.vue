@@ -1,36 +1,52 @@
 <template>
   <nav>
     <ul class="nav-content">
-      <li>
-        <nuxt-link to="/" class="active">最新文章</nuxt-link>
+      <li @click="handleClick('')">
+        <nuxt-link to="/" :class="{'active': !type}">最新文章</nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/react">React</nuxt-link>
+      <li @click="handleClick('react')">
+        <nuxt-link to="/react" :class="{'active': type == 'react'}">React</nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/vue">Vue</nuxt-link>
+      <li @click="handleClick('vue')">
+        <nuxt-link to="/vue" :class="{'active': type == 'vue'}">Vue</nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/angular">Angular</nuxt-link>
+      <li @click="handleClick('angular')">
+        <nuxt-link to="/angular" :class="{'active': type == 'angular'}">Angular</nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/node">Node</nuxt-link>
+      <li @click="handleClick('node')">
+        <nuxt-link to="/node" :class="{'active': type == 'node'}">Node</nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/build">构建</nuxt-link>
+      <li @click="handleClick('build')">
+        <nuxt-link to="/build" :class="{'active': type == 'build'}">构建</nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/interveiw">面试分享</nuxt-link>
+      <li @click="handleClick('interview')">
+        <nuxt-link to="/interview" :class="{'active': type == 'interview'}">面试分享</nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/other">其他</nuxt-link>
+      <li @click="handleClick('other')">
+        <nuxt-link to="/other" :class="{'active': type == 'other'}">其他</nuxt-link>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
-
+  export default {
+    data () {
+      return {
+        type: ''
+      }
+    },
+    created () {
+      console.log('aa')
+      console.log(this.$route.params.id)
+      this.type = this.$route.params.id
+    },
+    methods: {
+      handleClick (type) {
+        this.type = type
+      }
+    }
+  }
 </script>
 
 <style scoped>

@@ -52,6 +52,7 @@ function compiledMarkdown (content) {
 
 export default {
   name: 'id',
+  layout: 'detail',
   components: {
     Topic
   },
@@ -79,6 +80,7 @@ export default {
   width: 960px;
   position: relative;
   margin-bottom: 20px;
+  min-height: 425px;
 }
 
 .left

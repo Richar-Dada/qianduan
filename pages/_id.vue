@@ -1,23 +1,32 @@
 <template>
   <section class="article-container">
     <div class="left">
-      <a :href="'/article/' + article.id" v-for="(article) in articleList" :key="article">
+      <a target="_blank" :href="'/article/' + article.id" v-for="(article, index) in articleList" :key="index">
         <div class="article-item" >
           <div class="article-info">
             <el-breadcrumb separator="/">
-              <el-breadcrumb-item class="article-info">dongling</el-breadcrumb-item>
-              <el-breadcrumb-item class="article-info">2018-06-04</el-breadcrumb-item>
-              <el-breadcrumb-item class="article-info">Vue.js/Google</el-breadcrumb-item>
+              <el-breadcrumb-item class="article-info">{{article.author}}</el-breadcrumb-item>
+              <el-breadcrumb-item class="article-info">{{article.updatedAt.split('T')[0]}}</el-breadcrumb-item>
+              <el-breadcrumb-item class="article-info">{{article.tags}}</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
           <div class="article-title">
-            你或许不知道Vue的这些小技巧
+            {{article.title}}
           </div>
         </div>
       </a>
-      
+      <div class="article-pagination">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          background
+          layout="prev, pager, next"
+          :total="totalCount">
+        </el-pagination>
+      </div>
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <topic></topic>
+    </div>
 
     
   </section>
@@ -25,21 +34,46 @@
 
 <script>
 import axios from '~/plugins/axios'
+import Topic from '~/components/Topic'
 
 export default {
   name: 'index',
+  components: {
+    Topic
+  },
   asyncData ({ params, error }) {
     return axios.get('/api/articles/' + params.id)
       .then((res) => {
-        return { articleList: res.data.data }
+        return { articleList: res.data.data, totalCount: res.data.allCount, type: params.id }
       })
       .catch((e) => {
         error({ statusCode: 404, message: 'Article not found' })
       })
   },
+  data () {
+    return {
+      totalCount: 0,
+      articleList: [],
+      type: ''
+    }
+  },
   head () {
     return {
       title: `前端`
+    }
+  },
+  methods: {
+    handleCurrentChange (val) {
+      console.log(this.$router)
+      axios.get('/api/articles/' + this.type + '?page=' + val)
+        .then((res) => {
+          console.log(res.data)
+          this.articleList = res.data.data
+          this.totalCount = res.data.allCount
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     }
   }
 }
@@ -51,6 +85,7 @@ export default {
   width: 960px;
   position: relative;
   margin-bottom: 20px;
+  min-height: 425px;
 }
 
 .left
@@ -97,5 +132,11 @@ a:last-child .article-item {
   font-size: 18px;
   font-weight: 600;
   margin: 20px 0 10px 0;
+}
+
+.article-pagination {
+  padding-top: 10px;
+  text-align: center;
+  height: 40px;
 }
 </style>

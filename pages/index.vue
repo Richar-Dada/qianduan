@@ -1,17 +1,17 @@
 <template>
   <section class="article-container">
     <div class="left">
-      <a :href="'/article/' + article.id" v-for="(article) in articleList" :key="article">
+      <a target="_blank" :href="'/article/' + article.id" v-for="(article, index) in articleList" :key="index">
         <div class="article-item" >
           <div class="article-info">
             <el-breadcrumb separator="/">
-              <el-breadcrumb-item class="article-info">dongling</el-breadcrumb-item>
-              <el-breadcrumb-item class="article-info">2018-06-04</el-breadcrumb-item>
-              <el-breadcrumb-item class="article-info">Vue.js/Google</el-breadcrumb-item>
+              <el-breadcrumb-item class="article-info">{{article.author}}</el-breadcrumb-item>
+              <el-breadcrumb-item class="article-info">{{article.updatedAt.split('T')[0]}}</el-breadcrumb-item>
+              <el-breadcrumb-item class="article-info">{{article.tags}}</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
           <div class="article-title">
-            你或许不知道Vue的这些小技巧
+            {{article.title}}
           </div>
         </div>
       </a>
@@ -84,6 +84,7 @@ export default {
   width: 960px;
   position: relative;
   margin-bottom: 20px;
+  min-height: 425px;
 }
 
 .left
